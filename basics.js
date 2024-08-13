@@ -23,7 +23,20 @@ const getWalletBalance = async () => {
     }
 };
 
+const airdropSOL = async () => {
+    try {
+        const airdropWallet = await connection.requestAirdrop(new PublicKey(publicKey), 1.5* LAMPORTS_PER_SOL);
+        await connection.confirmTransaction(airdropWallet);
+        console.log("Airdrop Confirmed");
+
+    } catch(err){
+        console.log("Failed to Airdrop", err);
+    }
+};
+
 const main  =  async () => {
+    await getWalletBalance();
+    await airdropSOL();
     await getWalletBalance();
 };
 
